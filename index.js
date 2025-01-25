@@ -4,6 +4,9 @@ const mongoose=require("mongoose");
 const path=require('path');
 const app=express();
 const PORT=8000;
+const cookieParser=require("cookie-parser")
+const  {checkForAuthenticationCookie} = require("./middlewares/authentication");
+const userRouter=require("./routes/user");
 
 mongoose.connect("mongodb://localhost:27017/blogify")
 .then(() => {
@@ -13,13 +16,14 @@ mongoose.connect("mongodb://localhost:27017/blogify")
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
-const userRouter=require("./routes/user");
-
+app.use(cookieParser());
+app.use(checkForAuthenticationCookie("token"));
 app.set("view engine","ejs");
 app.set("views",path.resolve("./views"));
-
 app.get("/",(req,res)=>{
-    return res.render('home.ejs');
+    return res.render('home.ejs',{
+      user:req.user,
+    });
 })
 app.use("/user",userRouter);
 
