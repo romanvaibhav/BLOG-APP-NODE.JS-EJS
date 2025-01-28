@@ -1,4 +1,5 @@
 const {Schema, model}=require("mongoose");
+const { schema } = require("./user");
 
 
 const userBlog=new Schema({
@@ -15,6 +16,13 @@ const userBlog=new Schema({
         required:false,
     },
     createdBy:{
-
+        type:Schema.Types.ObjectId,
+        ref:"user",
     }
+},{
+    timestamps:true
 })
+
+const Blog=model('blog',userBlog);
+
+module.exports=Blog;

@@ -6,7 +6,21 @@
 </head>
 <body>
     <%-include('./partials/nav')  %>
-    <%= JSON.stringify(user) %>
+    <div class="container mt-3">
+        <div class="row row-cols-3">
+        <% blogs.forEach(blog => { %>
+            <div class="card" style="width: 18rem; margin-left: 15px;">
+                <img src="<%= blog.coverImageURL %>" style="width: 285px; height: 200px; margin-left: -11px;" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= blog.title %></h5>
+                  <p class="card-text"><%= blog.body %></p>
+                  <a href="/blog/<%= blog._id %>" class="btn btn-primary">View</a>
+                </div>
+              </div>
+         
+        <% }) %>
+    </div>
+    </div>
     <%-include('./partials/scripts')  %>
 
 </body>

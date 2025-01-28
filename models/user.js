@@ -51,7 +51,6 @@ UserSchema.static("matchPasswordAndGenerateToken",async function(email,password)
 
     } 
     console.log('User found:', user);
-
     const salt = user.salt;
     const hashedPassword = user.password;
     // console.log('User-provided hash:', userProvidedHash);
